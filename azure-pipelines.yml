@@ -30,18 +30,11 @@ steps:
     mvn package
 
 - task: Docker@2
-  displayName: Build an image
+  displayName: Build & push an image
   inputs:
     repository: $(imageName)
-    command: build
-    Dockerfile: ./Dockerfile
-
-- task: Docker@2
-  displayName: Push image
-  inputs:
-    containerRegistry: |
-      $(dockerHub)
-    repository: $(imageName)
-    command: push
+    command: buildAndPush
     tags: |
-      $(Build.BuildNumber)    
+      latest
+      $(Build.BuildNumber)
+    Dockerfile: ./Dockerfile   
