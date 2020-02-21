@@ -49,3 +49,11 @@ steps:
       $(dockerHub)
     command: pull  
     arguments: $(imageName) 
+
+- task: Docker@2
+  displayName: Run image
+  inputs:
+    containerRegistry: |
+      $(dockerHub)
+    command: run  
+    arguments: $(imageName)
