@@ -12,6 +12,8 @@ pool:
 variables:
   imageName: moranankonina/pipelines-mvn-docker
   dockerHub: dockerHub
+  userName: moranankonina
+  password: dockerHub2020
 
 steps:
 - task: Maven@3
@@ -28,6 +30,7 @@ steps:
 - script: |
     cd my-app
     mvn package
+    docker login -u $(userName) -p $(password)
 
 - task: Docker@2
   displayName: Build & push an image
