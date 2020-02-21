@@ -10,7 +10,8 @@ pool:
   vmImage: 'ubuntu-latest'
   
 variables:
-  imageName: moranankonina/pipelines-mvn-docker 
+  imageName: moranankonina/pipelines-mvn-docker
+  dockerHub: dockerHub
 
 steps:
 - task: Maven@3
@@ -34,3 +35,13 @@ steps:
     repository: $(imageName)
     command: build
     Dockerfile: ./Dockerfile
+
+- task: Docker@2
+  displayName: Push image
+  inputs:
+    containerRegistry: |
+      $(dockerHub)
+    repository: $(imageName)
+    command: push
+    tags: |
+      $(Build.BuildNumber)    
