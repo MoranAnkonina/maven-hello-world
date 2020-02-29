@@ -32,6 +32,7 @@ steps:
 - task: Docker@2
   displayName: Build & push an image
   inputs:
+    containerRegistry: 'dockerHub'
     repository: $(imageName)
     command: buildAndPush
     tags: |
@@ -42,15 +43,13 @@ steps:
 - task: Docker@2
   displayName: Pull image
   inputs:
-    containerRegistry: |
-      $(dockerHub)
+    containerRegistry: 'dockerHub'
     command: pull  
     arguments: $(imageName) 
 
 - task: Docker@2
   displayName: Run image
   inputs:
-    containerRegistry: |
-      $(dockerHub)
+    containerRegistry: 'dockerHub'
     command: run  
     arguments: $(imageName)
